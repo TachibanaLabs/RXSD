@@ -36,11 +36,11 @@ describe 'Translator' do
     schema = Parser.parse_xsd raw: @data
     tags = schema.tags
     tags.size.should == 5
-    tags.key?('Kaboom').should be_true
-    tags.key?('Foomanchu').should be_true
-    tags.key?('MoMoney').should be_true
-    tags.key?('MoMoney:my_s').should be_true
-    tags.key?('MoMoney:my_a').should be_true
+    tags.key?('Kaboom').should == true
+    tags.key?('Foomanchu').should == true
+    tags.key?('MoMoney').should == true
+    tags.key?('MoMoney:my_s').should == true
+    tags.key?('MoMoney:my_a').should == true
     tags['Kaboom'].should_not be_nil
   end
 
@@ -51,12 +51,12 @@ describe 'Translator' do
     schema = Parser.parse_xsd raw: @data
     classes = schema.to :ruby_classes
     classes.size.should == 6
-    classes.include?(XSDFloat).should be_true
-    classes.include?(Array).should be_true
-    classes.include?(String).should be_true
-    classes.include?(Boolean).should be_true
-    classes.include?(Kaboom).should be_true
-    classes.include?(MoMoney).should be_true
+    classes.include?(XSDFloat).should == true
+    classes.include?(Array).should == true
+    classes.include?(String).should == true
+    classes.include?(Boolean).should == true
+    classes.include?(Kaboom).should == true
+    classes.include?(MoMoney).should == true
     momoney = MoMoney.new
     momoney.method(:my_s).should_not be_nil
     momoney.method(:my_s=).should_not be_nil
@@ -68,15 +68,15 @@ describe 'Translator' do
     schema = Parser.parse_xsd raw: @data
     classes = schema.to :ruby_definitions
     classes.size.should == 6
-    classes.include?("class XSDFloat\nend").should be_true
-    classes.include?("class Array\nend").should be_true
-    classes.include?("class String\nend").should be_true
-    classes.include?("class Boolean\nend").should be_true
-    classes.include?("class Kaboom < String\nend").should be_true
+    classes.include?("class XSDFloat\nend").should == true
+    classes.include?("class Array\nend").should == true
+    classes.include?("class String\nend").should == true
+    classes.include?("class Boolean\nend").should == true
+    classes.include?("class Kaboom < String\nend").should == true
     classes.include?("class MoMoney < String\n" \
                        "attr_accessor :my_s\n" \
                        "attr_accessor :my_a\n" \
-                     'end').should be_true
+                     'end').should == true
   end
 
   it 'should generate ruby objects' do
@@ -87,7 +87,7 @@ describe 'Translator' do
     schema_instance = Parser.parse_xml raw: instance
     objs = schema_instance.to :ruby_objects, schema: schema
     objs.size.should == 1
-    objs.collect(&:class).include?(Kaboom).should be_true
+    objs.collect(&:class).include?(Kaboom).should == true
     objs.find { |o| o.class == Kaboom }.should == 'yo'
 
     instance = '<Foomanchu>true</Foomanchu>'
@@ -100,7 +100,7 @@ describe 'Translator' do
     schema_instance = Parser.parse_xml raw: instance
     objs = schema_instance.to :ruby_objects, schema: schema
     objs.size.should == 1
-    objs.collect(&:class).include?(MoMoney).should be_true
+    objs.collect(&:class).include?(MoMoney).should == true
     objs.find { |o| o.class == MoMoney }.my_s.should == 'abc'
   end
 end

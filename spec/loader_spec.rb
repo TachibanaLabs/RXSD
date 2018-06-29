@@ -16,7 +16,7 @@ describe 'Loader' do
 
   it 'should load http uri' do
     # uploaded a minimal test to projects.morsi.org
-    data = RXSD::Loader.load('http://projects.morsi.org/rxsd/test-schema1.xsd')
-    data.should == "foobar\n"
+    data = RXSD::Loader.load('http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd')
+    data.should_not == nil
   end
 end

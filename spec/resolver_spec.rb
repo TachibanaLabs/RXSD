@@ -31,16 +31,16 @@ describe 'Resolver' do
     schema.groups = [grp1, grp2]
 
     children = schema.children
-    children.include?(elem1).should be_true
-    children.include?(elem2).should be_true
-    children.include?(st1).should be_true
-    children.include?(ct1).should be_true
-    children.include?(at1).should be_true
-    children.include?(at2).should be_true
-    children.include?(at3).should be_true
-    children.include?(atg1).should be_true
-    children.include?(grp1).should be_true
-    children.include?(grp2).should be_true
+    children.include?(elem1).should == true
+    children.include?(elem2).should == true
+    children.include?(st1).should == true
+    children.include?(ct1).should == true
+    children.include?(at1).should == true
+    children.include?(at2).should == true
+    children.include?(at3).should == true
+    children.include?(atg1).should == true
+    children.include?(grp1).should == true
+    children.include?(grp2).should == true
   end
 
   it 'should return element children' do
@@ -51,8 +51,8 @@ describe 'Resolver' do
     elem.complex_type = ct1
 
     children = elem.children
-    children.include?(st1).should be_true
-    children.include?(ct1).should be_true
+    children.include?(st1).should == true
+    children.include?(ct1).should == true
   end
 
   it 'should return complex type children' do
@@ -74,13 +74,13 @@ describe 'Resolver' do
     complex_type.sequence = sequence
 
     children = complex_type.children
-    children.include?(at1).should be_true
-    children.include?(atg1).should be_true
-    children.include?(simple_content).should be_true
-    children.include?(complex_content).should be_true
-    children.include?(choice).should be_true
-    children.include?(group).should be_true
-    children.include?(sequence).should be_true
+    children.include?(at1).should == true
+    children.include?(atg1).should == true
+    children.include?(simple_content).should == true
+    children.include?(complex_content).should == true
+    children.include?(choice).should == true
+    children.include?(group).should == true
+    children.include?(sequence).should == true
   end
 
   it 'should return simple type children' do
@@ -92,8 +92,8 @@ describe 'Resolver' do
     simple_type.restriction = res
 
     children = simple_type.children
-    children.include?(list).should be_true
-    children.include?(res).should be_true
+    children.include?(list).should == true
+    children.include?(res).should == true
   end
 
   it 'should return attribute children' do
@@ -103,7 +103,7 @@ describe 'Resolver' do
     att.simple_type = simple_type
 
     children = att.children
-    children.include?(simple_type).should be_true
+    children.include?(simple_type).should == true
   end
 
   it 'should return attribute group children' do
@@ -115,9 +115,9 @@ describe 'Resolver' do
     atg.attribute_groups = [atg1]
 
     children = atg.children
-    children.include?(at1).should be_true
-    children.include?(at2).should be_true
-    children.include?(atg1).should be_true
+    children.include?(at1).should == true
+    children.include?(at2).should == true
+    children.include?(atg1).should == true
   end
 
   it 'should return group children' do
@@ -129,8 +129,8 @@ describe 'Resolver' do
     grp.sequence = sequence
 
     children = grp.children
-    children.include?(choice).should be_true
-    children.include?(sequence).should be_true
+    children.include?(choice).should == true
+    children.include?(sequence).should == true
   end
 
   it 'should return list children' do
@@ -140,7 +140,7 @@ describe 'Resolver' do
     list.simple_type = simple_type
 
     children = list.children
-    children.include?(simple_type).should be_true
+    children.include?(simple_type).should == true
   end
 
   it 'should return simple content children' do
@@ -152,8 +152,8 @@ describe 'Resolver' do
     simple_content.restriction = res
 
     children = simple_content.children
-    children.include?(ext).should be_true
-    children.include?(res).should be_true
+    children.include?(ext).should == true
+    children.include?(res).should == true
   end
 
   it 'should return choice children' do
@@ -172,11 +172,11 @@ describe 'Resolver' do
     choice.sequences = [sequence1]
 
     children = choice.children
-    children.include?(grp1).should be_true
-    children.include?(choice1).should be_true
-    children.include?(choice2).should be_true
-    children.include?(choice3).should be_true
-    children.include?(sequence1).should be_true
+    children.include?(grp1).should == true
+    children.include?(choice1).should == true
+    children.include?(choice2).should == true
+    children.include?(choice3).should == true
+    children.include?(sequence1).should == true
   end
 
   it 'should return complex content children' do
@@ -188,8 +188,8 @@ describe 'Resolver' do
     complex_content.restriction = res
 
     children = complex_content.children
-    children.include?(ext).should be_true
-    children.include?(res).should be_true
+    children.include?(ext).should == true
+    children.include?(res).should == true
   end
 
   it 'should return sequence children' do
@@ -208,11 +208,11 @@ describe 'Resolver' do
     sequence.sequences = [sequence1]
 
     children = sequence.children
-    children.include?(grp1).should be_true
-    children.include?(choice1).should be_true
-    children.include?(choice2).should be_true
-    children.include?(choice3).should be_true
-    children.include?(sequence1).should be_true
+    children.include?(grp1).should == true
+    children.include?(choice1).should == true
+    children.include?(choice2).should == true
+    children.include?(choice3).should == true
+    children.include?(sequence1).should == true
   end
 
   it 'should return extension children' do
@@ -230,11 +230,11 @@ describe 'Resolver' do
     extension.attribute_groups = [atg1]
 
     children = extension.children
-    children.include?(grp1).should be_true
-    children.include?(choice1).should be_true
-    children.include?(sequence1).should be_true
-    children.include?(at1).should be_true
-    children.include?(atg1).should be_true
+    children.include?(grp1).should == true
+    children.include?(choice1).should == true
+    children.include?(sequence1).should == true
+    children.include?(at1).should == true
+    children.include?(atg1).should == true
   end
 
   it 'should return restriction children' do
@@ -254,12 +254,12 @@ describe 'Resolver' do
     restriction.simple_type = st1
 
     children = restriction.children
-    children.include?(grp1).should be_true
-    children.include?(choice1).should be_true
-    children.include?(sequence1).should be_true
-    children.include?(at1).should be_true
-    children.include?(atg1).should be_true
-    children.include?(st1).should be_true
+    children.include?(grp1).should == true
+    children.include?(choice1).should == true
+    children.include?(sequence1).should == true
+    children.include?(at1).should == true
+    children.include?(atg1).should == true
+    children.include?(st1).should == true
   end
 
   ##########

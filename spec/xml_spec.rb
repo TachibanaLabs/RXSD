@@ -10,7 +10,7 @@ require File.dirname(__FILE__) + '/spec_helper'
 describe 'RXSD::XML' do
   it 'should provide root node given adapter and xml data' do
     root_node = XML::Node.factory backend: :libxml, xml: '<schema/>'
-    root_node.is_a?(XML::LibXMLNode).should be_true
+    root_node.is_a?(XML::LibXMLNode).should == true
   end
 
   it 'should return correct root node' do
@@ -69,9 +69,9 @@ describe 'RXSD::LibXMLAdapter' do
     root = XML::LibXMLNode.xml_root(@test_xml)
     root.children.size.should == 2
     root.children.each { |c| c.class.should == XML::LibXMLNode }
-    root.children.collect(&:name).include?('entity').should be_true
-    root.children.collect(&:name).include?('other_entity').should be_true
-    root.children.collect(&:name).include?('foo_entity').should be_false
+    root.children.collect(&:name).include?('entity').should == true
+    root.children.collect(&:name).include?('other_entity').should == true
+    root.children.collect(&:name).include?('foo_entity').should == false
 
     root.children[0].children.size.should == 1
     root.children[1].children.size.should == 0
@@ -94,24 +94,24 @@ describe 'RXSD::LibXMLAdapter' do
   it 'should identify and return parent' do
     root = XML::LibXMLNode.xml_root(@test_xml)
 
-    root.parent?.should be_false
+    root.parent?.should == false
     root.parent.should be_nil
 
-    root.children[0].parent?.should be_true
+    root.children[0].parent?.should == true
     root.children[0].parent.should == root
 
-    root.children[1].parent?.should be_true
+    root.children[1].parent?.should == true
     root.children[1].parent.should == root
 
-    root.children[0].children[0].parent?.should be_true
+    root.children[0].children[0].parent?.should == true
     root.children[0].children[0].parent.should == root.children[0]
   end
 
   it 'should identify text and return content' do
     root = XML::LibXMLNode.xml_root(@test_xml)
-    root.children[0].text?.should be_false
-    root.children[1].text?.should be_true
-    root.children[0].children[0].text?.should be_false
+    root.children[0].text?.should == false
+    root.children[1].text?.should == true
+    root.children[0].children[0].text?.should == false
 
     root.children[1].content.should == 'some text'
   end
@@ -119,7 +119,7 @@ describe 'RXSD::LibXMLAdapter' do
   it 'should return namespaces' do
     root = XML::LibXMLNode.xml_root(@test_xml)
     root.namespaces.size.should == 2
-    root.namespaces.collect(&:to_s).include?('h:http://test.host/ns.xml').should be_true
+    root.namespaces.collect(&:to_s).include?('h:http://test.host/ns.xml').should == true
     # root.children[0].namespaces.size.should == 0 # children share the namespace apparently
   end
 end

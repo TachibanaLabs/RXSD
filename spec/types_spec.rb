@@ -11,8 +11,8 @@ describe 'RXSD Types' do
   # FIXME: DateTime
 
   it 'should convert string to/from bool' do
-    'true'.to_b.should be_true
-    'false'.to_b.should be_false
+    'true'.to_b.should == true
+    'false'.to_b.should == false
     lambda {
       'foobar'.to_b
     }.should raise_error(ArgumentError)
@@ -21,8 +21,8 @@ describe 'RXSD Types' do
   end
 
   it 'should convert bool to/from string' do
-    Boolean.from_s('true').should be_true
-    Boolean.from_s('false').should be_false
+    Boolean.from_s('true').should == true
+    Boolean.from_s('false').should == false
   end
 
   it 'should convert char to/from string' do
@@ -40,9 +40,9 @@ describe 'RXSD Types' do
   it 'should convert array to/from string' do
     arr = Array.from_s '4 9 50 123', XSDInteger
     arr.size.should == 4
-    arr.include?(4).should be_true
-    arr.include?(9).should be_true
-    arr.include?(50).should be_true
-    arr.include?(123).should be_true
+    arr.include?(4).should == true
+    arr.include?(9).should == true
+    arr.include?(50).should == true
+    arr.include?(123).should == true
   end
 end
