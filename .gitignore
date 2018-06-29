@@ -21,4 +21,5 @@ certificates/*.*
 log/*.*
 *.swp
 *.swo
-*~
+*
+.idea/~
