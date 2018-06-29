@@ -1,4 +1,6 @@
 #!/usr/bin/ruby
+# frozen_string_literal: true
+
 # Simple rxsd test utility
 #
 # Usage rxsd_test uri-to-schema uri-to-xml-instance
@@ -9,31 +11,31 @@
 begin
   require 'rxsd'
 rescue LoadError
-  $: << File.join(File.dirname(File.expand_path(__FILE__)), '..', 'lib')
+  $LOAD_PATH << File.join(File.dirname(File.expand_path(__FILE__)), '..', 'lib')
   require 'rxsd'
 end
 
 if ARGV.size < 2
-  puts "missing required arguments"
-  puts "usage: rxsd_test xsd_uri xml_uri"
+  puts 'missing required arguments'
+  puts 'usage: rxsd_test xsd_uri xml_uri'
   exit
 end
 
 xsd_uri = ARGV[0]
 xml_uri = ARGV[1]
 
-schema = RXSD::Parser.parse_xsd :uri => xsd_uri
+schema = RXSD::Parser.parse_xsd uri: xsd_uri
 
-puts "=======Classes======="
+puts '=======Classes======='
 classes = schema.to :ruby_classes
-puts classes.collect{ |cl| !cl.nil? ? (cl.to_s + " < " + cl.superclass.to_s) : ""}.sort.join("\n")
+puts classes.collect { |cl| !cl.nil? ? (cl.to_s + ' < ' + cl.superclass.to_s) : '' }.sort.join("\n")
 
-puts "=======Tags======="
-puts schema.tags.collect { |n,cb| n + ": " + cb.to_s + ": " + (cb.nil? ? "ncb" : cb.klass_name.to_s + "-" + cb.klass.to_s) }.sort.join("\n")
+puts '=======Tags======='
+puts schema.tags.collect { |n, cb| n + ': ' + cb.to_s + ': ' + (cb.nil? ? 'ncb' : cb.klass_name.to_s + '-' + cb.klass.to_s) }.sort.join("\n")
 
-puts "=======Objects======="
-data = RXSD::Parser.parse_xml :uri => xml_uri
-objs = data.to :ruby_objects, :schema => schema
-objs.each {  |obj|
-  puts "#{obj}"
-}
+puts '=======Objects======='
+data = RXSD::Parser.parse_xml uri: xml_uri
+objs = data.to :ruby_objects, schema: schema
+objs.each do |obj|
+  puts obj.to_s
+end

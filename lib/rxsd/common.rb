@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Things that don't fit elsewhere
 #
 # Copyright (C) 2010 Mohammed Morsi <movitto@yahoo.com>
@@ -11,43 +13,46 @@ require 'logger'
 
 class Logger
   # Override default logger format
-  def format_message(severity, timestamp, progname, msg)
-    "#{severity} #{timestamp} (#{$$}) #{msg}\n"
+  def format_message(severity, timestamp, _progname, msg)
+    "#{severity} #{timestamp} (#{$PROCESS_ID}) #{msg}\n"
   end
 end
 
 module RXSD
-    # Logger helper class
-    class Logger
-      private
-        LOG_LEVEL = ::Logger::FATAL # FATAL ERROR WARN INFO DEBUG
+  # Logger helper class
+  class Logger
+    private
 
-        def self._instantiate_logger
-           unless defined? @@logger
-             @@logger = ::Logger.new(STDOUT)
-             @@logger.level = LOG_LEVEL
-           end 
-        end 
+      LOG_LEVEL = ::Logger::FATAL # FATAL ERROR WARN INFO DEBUG
 
-      public
-        def self.method_missing(method_id, *args)
-           _instantiate_logger
-           @@logger.send(method_id, args)
-        end 
-        def self.logger
-           _instantiate_logger
-           @@logger
+      def self._instantiate_logger
+        unless defined? @@logger
+          @@logger = ::Logger.new(STDOUT)
+          @@logger.level = LOG_LEVEL
         end
-    end
+      end
+
+    public
+
+      def self.method_missing(method_id, *args)
+        _instantiate_logger
+        @@logger.send(method_id, args)
+      end
+
+      def self.logger
+        _instantiate_logger
+        @@logger
+      end
+  end
 end
 
 class Module
   # add virtual method support
   def virtual(*methods)
     methods.each do |m|
-      define_method(m) {
+      define_method(m) do
         raise VirtualMethodCalledError, m
-      }
+      end
     end
   end
 
@@ -61,10 +66,10 @@ end
 
 # read entire file into string
 def File.read_all(path)
-  File.open(path, 'rb') {|file| return file.read }
+  File.open(path, 'rb') { |file| return file.read }
 end
 
 # write contents of file from string
 def File.write(path, str)
-  File.open(path, 'wb') {|file| file.write str }
+  File.open(path, 'wb') { |file| file.write str }
 end

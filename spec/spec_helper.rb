@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # loads and runs all tests for the rxsd project
 #
 # Copyright (C) 2010 Mohammed Morsi <movitto@yahoo.com>
@@ -5,8 +7,8 @@
 
 require 'rspec'
 
-CURRENT_DIR=File.dirname(__FILE__)
-$: << File.expand_path(CURRENT_DIR + "/../lib")
+CURRENT_DIR = File.dirname(__FILE__)
+$LOAD_PATH << File.expand_path(CURRENT_DIR + '/../lib')
 
 require 'rxsd'
 include RXSD

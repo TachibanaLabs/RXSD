@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # RXSD builtin types
 #
 # Here we add some functionality to some basic
@@ -19,11 +21,11 @@ class Array
   # * str should be the string encoded array
   # * item_type should be the class on which to invoke from_s on each array item
   def self.from_s(str, item_type)
-     arr = []
-     str.split.each { |i|
-       arr.push item_type.from_s(i)
-     }
-     return arr
+    arr = []
+    str.split.each do |i|
+      arr.push item_type.from_s(i)
+    end
+    arr
   end
 end
 
@@ -31,29 +33,29 @@ class String
   # Convert string to boolean
   def to_b
     return true if self == true || self =~ /^true$/i
-    return false if self == false || self.nil? || self =~ /^false$/i
+    return false if self == false || nil? || self =~ /^false$/i
     raise ArgumentError, "invalid value for Boolean: \"#{self}\""
   end
 
   # Convert string to string (just return str)
   def self.from_s(str)
-     str
+    str
   end
 
   # Helper to convert string to array of specified type.
   def to_xa(args = {})
-     arr = []
-     item_type = args[:type]
-     delim     = args.has_key?(:delim) ? args[:delim] : ' '
-     split(delim).collect { |item| arr.push(item_type.from_s(item)) }
-     return arr
+    arr = []
+    item_type = args[:type]
+    delim     = args.key?(:delim) ? args[:delim] : ' '
+    split(delim).collect { |item| arr.push(item_type.from_s(item)) }
+    arr
   end
 end
 
 class Time
-  # Convert string to Time and return 
+  # Convert string to Time and return
   def self.from_s(str)
-     return Time.parse(str)
+    Time.parse(str)
   end
 end
 
@@ -67,39 +69,34 @@ require 'delegate'
 # we use the delegate module.
 # http://codeidol.com/other/rubyckbk/Numbers/Simulating-a-Subclass-of-Fixnum/
 class XSDInteger < DelegateClass(::Integer)
-
   # Convert string to integer and return
   def self.from_s(str)
-     str.to_i
+    str.to_i
   end
-
 end
 
 # Since we can't create new instances of Float subclasses,
 # we use the delegate module.
 # http://codeidol.com/other/rubyckbk/Numbers/Simulating-a-Subclass-of-Fixnum/
 class XSDFloat < DelegateClass(::Float)
-
   # Convert string to float and return
   def self.from_s(str)
-     str.to_f
+    str.to_f
   end
-
 end
 
 # Ruby doesn't define a Boolean class, so we define one ourselves
 class Boolean
-
   # Convert string to boolean and return
   def self.from_s(str)
-     str.to_b
+    str.to_b
   end
 
-  def initialize(val=false)
-     @val = val
+  def initialize(val = false)
+    @val = val
   end
 
   def nil?
-     return !@val
+    !@val
   end
 end

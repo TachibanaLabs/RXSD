@@ -8,7 +8,7 @@ PKG_VERSION = '0.6.0'
 Gem::Specification.new do |s|
   s.name = GEM_NAME
   s.version = PKG_VERSION
-  s.files = `git ls-files`.split($/)
+  s.files = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
   s.executables << 'xsd_to_ruby' << 'rxsd_test'
 
   s.required_ruby_version = '>= 1.8.1'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # include all rxsd modules
 #
 # Copyright (C) 2010 Mohammed Morsi <movitto@yahoo.com>
@@ -5,7 +7,7 @@
 
 lib = File.dirname(__FILE__)
 
-$: << lib + '/rxsd/'
+$LOAD_PATH << lib + '/rxsd/'
 
 require 'rubygems'
 

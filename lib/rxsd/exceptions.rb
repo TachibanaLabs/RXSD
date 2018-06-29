@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # RXSD exceptions
 #
 # Copyright (C) 2010 Mohammed Morsi <movitto@yahoo.com>
@@ -7,7 +9,7 @@ require 'uri' # use uri to parse sources
 
 # add virtual method support
 class VirtualMethodCalledError < RuntimeError
-  attr :name
+  attr_reader :name
   def initialize(name)
     super("Virtual function '#{name}' called")
     @name = name
@@ -15,11 +17,9 @@ class VirtualMethodCalledError < RuntimeError
 end
 
 module RXSD
-module Exceptions
-
-# thrown when specified resource uri is invalid
-class InvalidResourceUri
-end
-
-end # module Exceptions
+  module Exceptions
+    # thrown when specified resource uri is invalid
+    class InvalidResourceUri
+    end
+    end # module Exceptions
 end # module RXSD
